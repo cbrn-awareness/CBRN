@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Indian Army CBRN Defense - Mission Oriented Protective Posture">
+    <title>Indian Army CBRN | MOPP Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-y: scroll;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #f5f5dc 0%, #e8e4d9 50%, #d4d4aa 100%);
+            color: #2d3748;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .font-oswald {
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .olive-light { background-color: #f5f5dc; }
+        .olive-medium { background-color: #d4d4aa; }
+        .olive-dark { background-color: #4b5320; }
+        .olive-text { color: #4b5320; }
+        .olive-bg { background-color: #4b5320; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .scale-in.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        
+        .mopp-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 12px 0;
+            box-shadow: 0 8px 32px rgba(75, 83, 32, 0.1);
+            border-left: 5px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mopp-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 12px 40px rgba(75, 83, 32, 0.15);
+        }
+        
+        .mopp-0 { border-left-color: #28a745; }
+        .mopp-1 { border-left-color: #007bff; }
+        .mopp-2 { border-left-color: #ffc107; }
+        .mopp-3 { border-left-color: #fd7e14; }
+        .mopp-4 { border-left-color: #dc3545; }
+        
+        .eq-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .eq-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(75, 83, 32, 0.2);
+        }
+        
+        .eq-card img {
+            transition: transform 0.6s ease;
+        }
+        
+        .eq-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(75, 83, 32, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(75, 83, 32, 0); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #4b5320 0%, #6b7c3a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .flag-strip {
+            height: 4px;
+            background: linear-gradient(to right, #ff9932 33%, #ffffff 33%, #ffffff 66%, #138808 66%);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* Top Right Logos Container */
+        .top-logos {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 998;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .top-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #4b5320;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .top-logo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(75, 83, 32, 0.3);
+        }
+        
+        .nav-fixed {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 999;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4b5320;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-item:hover {
+            background: #4b5320;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .nav-item.active {
+            background: #4b5320;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            width: 4px;
+            height: 4px;
+            background: #4b5320;
+            border-radius: 50%;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 4px;
+            left: 0;
+            height: 3px;
+            background: #4b5320;
+            z-index: 1001;
+            transition: width 0.1s;
+        }
+        
+        .img-cover {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 80px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .hero-logo {
+            filter: drop-shadow(0 10px 30px rgba(75, 83, 32, 0.3));
+        }
+        
+        .cbrn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .cbrn-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .cbrn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(75, 83, 32, 0.15);
+        }
+        
+        .x-embed-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 8px 32px rgba(75, 83, 32, 0.1);
+        }
+        
+        .x-embed-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .x-embed-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .x-embed-header h4 {
+            font-weight: 700;
+            color: #4b5320;
+            font-size: 14px;
+        }
+        
+        .x-embed-header span {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .twitter-timeline {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Smooth scroll for mobile */
+        @media (max-width: 768px) {
+            html {
+                scroll-snap-type: none;
+            }
+            
+            section {
+                min-height: auto;
+                padding: 60px 15px 80px;
+            }
+        }
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Indian Flag Strip -->
+    <div class="flag-strip"></div>
+
+    <!-- Top Right Logos - Added Indian Army Logo -->
+    <div class="top-logos">
+        <!-- Indian Army Logo -->
+        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/d70a2f1ff22ad428f0b334146b71ba2b91665138.png" 
+             alt="Indian Army" 
+             class="top-logo" 
+             title="Indian Army"
+             onclick="window.open('https://x.com/adgpi', '_blank')">
+        
+        <!-- Southern Command Logo -->
+        <img src="https://www.bharat-rakshak.com/army/wp-content/uploads/sites/2/2006/10/Command-Southern.jpg" 
+             alt="Southern Command" 
+             class="top-logo" 
+             title="Southern Command"
+             onclick="window.open('https://x.com/IaSouthern', '_blank')">
+        
+        <!-- Konark Corps Logo -->
+        <img src="https://www.globalsecurity.org/military/world/india/images/corps-xii.gif" 
+             alt="Konark Corps" 
+             class="top-logo" 
+             title="Konark Corps (XII Corps)"
+             onclick="window.open('https://x.com/IaSouthern', '_blank')">
+    </div>
+
+    <!-- Section 1: Hero - Removed Indian Army Logo and Name, kept CBRN -->
+    <section id="home">
+        <div class="text-center">
+            <div class="reveal scale-in">
+                <!-- CBRN Icon instead of Indian Army Logo -->
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-olive-dark to-olive-medium flex items-center justify-center hero-logo float shadow-2xl">
+                    <i class="fas fa-biohazard text-6xl text-white"></i>
+                </div>
+            </div>
+            
+            <h1 class="font-oswald text-5xl font-bold gradient-text mb-2 reveal">
+                CBRN
+            </h1>
+            <h2 class="text-xl font-semibold text-gray-600 mb-8 reveal delay-100">
+                Defense Guide
+            </h2>
+            
+            <div class="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg mb-8 reveal delay-200">
+                <div class="flex justify-center gap-6 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-flask text-2xl olive-text mb-1"></i>
+                        <p class="text-xs">Chemical</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-bacteria text-2xl olive-text mb-1"></i>
+                        <p class="text-xs">Biological</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-radiation text-2xl olive-text mb-1"></i>
+                        <p class="text-xs">Radiological</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-bomb text-2xl olive-text mb-1"></i>
+                        <p class="text-xs">Nuclear</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Mission Oriented Protective Posture</p>
+            </div>
+
+            <div class="reveal delay-300">
+                <p class="text-xs text-gray-500 mb-2">Scroll to explore</p>
+                <div class="animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl olive-text"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: CBRN Info -->
+    <section id="cbrn">
+        <h2 class="font-oswald text-4xl font-bold gradient-text mb-2 text-center reveal">
+            CBRN THREATS
+        </h2>
+        <p class="text-center text-sm text-gray-600 mb-8 reveal delay-100">Know Your Enemy</p>
+
+        <div class="cbrn-grid">
+            <div class="cbrn-card reveal delay-100">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-flask text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Chemical</h3>
+                <p class="text-xs text-gray-600">Nerve & blister agents</p>
+            </div>
+
+            <div class="cbrn-card reveal delay-200">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-purple-100 flex items-center justify-center">
+                    <i class="fas fa-bacteria text-purple-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Biological</h3>
+                <p class="text-xs text-gray-600">Pathogens & toxins</p>
+            </div>
+
+            <div class="cbrn-card reveal delay-300">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-blue-100 flex items-center justify-center">
+                    <i class="fas fa-radiation text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Radiological</h3>
+                <p class="text-xs text-gray-600">RDD & fallout</p>
+            </div>
+
+            <div class="cbrn-card reveal delay-400">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-red-100 flex items-center justify-center">
+                    <i class="fas fa-bomb text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Nuclear</h3>
+                <p class="text-xs text-gray-600">IND & tactical</p>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white rounded-2xl p-5 shadow-lg reveal delay-500">
+            <div class="flex items-center gap-4">
+                <i class="fas fa-shield-alt text-3xl olive-text"></i>
+                <div>
+                    <h4 class="font-bold text-sm">Protection First</h4>
+                    <p class="text-xs text-gray-600">MOPP levels provide graduated response capability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: MOPP Levels -->
+    <section id="mopp">
+        <h2 class="font-oswald text-4xl font-bold gradient-text mb-2 text-center reveal">
+            MOPP LEVELS
+        </h2>
+        <p class="text-center text-xs text-gray-600 mb-8 reveal delay-100">Mission Oriented Protective Posture</p>
+
+        <div class="space-y-4">
+            <div class="mopp-card mopp-0 reveal-left delay-100">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold">MOPP 0</span>
+                        <h3 class="font-bold mt-2">No Threat</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">8 min</span>
+                </div>
+                <p class="text-xs text-gray-600">Mask carried, suit stored. Normal operations.</p>
+            </div>
+
+            <div class="mopp-card mopp-1 reveal-right delay-200">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold">MOPP 1</span>
+                        <h3 class="font-bold mt-2">Possible Threat</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">6 min</span>
+                </div>
+                <p class="text-xs text-gray-600">Suit worn open, mask carried.</p>
+            </div>
+
+            <div class="mopp-card mopp-2 reveal-left delay-300">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold">MOPP 2</span>
+                        <h3 class="font-bold mt-2">Likely Threat</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">4 min</span>
+                </div>
+                <p class="text-xs text-gray-600">Suit closed, overboots on.</p>
+            </div>
+
+            <div class="mopp-card mopp-3 reveal-right delay-400">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-bold">MOPP 3</span>
+                        <h3 class="font-bold mt-2">Imminent Threat</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2 min</span>
+                </div>
+                <p class="text-xs text-gray-600">Mask on, gloves stored.</p>
+            </div>
+
+            <div class="mopp-card mopp-4 reveal-left delay-500">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">MOPP 4</span>
+                        <h3 class="font-bold mt-2">Confirmed Attack</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Now</span>
+                </div>
+                <p class="text-xs text-gray-600">Full protection. All gear on.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Equipment -->
+    <section id="equipment">
+        <h2 class="font-oswald text-4xl font-bold gradient-text mb-2 text-center reveal">
+            EQUIPMENT
+        </h2>
+        <p class="text-center text-xs text-gray-600 mb-8 reveal delay-100">Indigenous Systems</p>
+
+        <div class="space-y-6">
+            <div class="eq-card reveal delay-100">
+                <div class="overflow-hidden rounded-t-2xl">
+                    <img src="https://kimi-web-img.moonshot.cn/img/c8.alamy.com/0d59fa4daf0eacf0d4ed7218688887ce7fa5e3d4.jpg" 
+                         alt="NBC Suit Mark V" 
+                         class="img-cover">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg olive-text mb-1">NBC Suit Mark V</h3>
+                    <p class="text-xs text-gray-500 mb-3">DMSRDE Kanpur</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">48h Protection</span>
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">2.5 kg</span>
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">ACS Tech</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="eq-card reveal delay-200">
+                <div class="overflow-hidden rounded-t-2xl">
+                    <img src="https://kimi-web-img.moonshot.cn/img/images.bhaskarassets.com/9271be735b6e0f43fee77849739454587af24cc5.png" 
+                         alt="ACADA System" 
+                         class="img-cover">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg olive-text mb-1">ACADA</h3>
+                    <p class="text-xs text-gray-500 mb-3">DRDE Gwalior</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">IMS Based</span>
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">80% Indigenous</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="eq-card reveal delay-300">
+                <div class="overflow-hidden rounded-t-2xl">
+                    <img src="https://kimi-web-img.moonshot.cn/img/nct-cbnw.com/17b6a0312513e9bbe8a41f9667fba5e2b6247f86.jpg" 
+                         alt="CBRN Training" 
+                         class="img-cover">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg olive-text mb-1">Training</h3>
+                    <p class="text-xs text-gray-500 mb-3">CME Pune</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">AI Enabled</span>
+                        <span class="text-xs bg-olive-light olive-text px-3 py-1 rounded-full">Simulator</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: About with X Embeds Only -->
+    <section id="about">
+        <div class="text-center">
+            <!-- X (Twitter) Feeds Section -->
+            <h3 class="font-oswald text-xl font-bold olive-text mb-4 reveal delay-200">OFFICIAL X HANDLES</h3>
+            
+            <!-- Indian Army CBRN / ADGPI -->
+            <div class="x-embed-container reveal delay-300">
+                <div class="x-embed-header">
+                    <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/d70a2f1ff22ad428f0b334146b71ba2b91665138.png" alt="ADGPI">
+                    <div class="text-left">
+                        <h4>ADGPI - Indian Army</h4>
+                        <span>@adgpi</span>
+                    </div>
+                    <a href="https://x.com/adgpi" target="_blank" class="ml-auto text-blue-500 hover:text-blue-700">
+                        <i class="fab fa-x-twitter text-xl"></i>
+                    </a>
+                </div>
+                <a class="twitter-timeline" 
+                   data-height="250" 
+                   data-theme="light"
+                   href="https://twitter.com/adgpi?ref_src=twsrc%5Etfw">
+                   Tweets by adgpi
+                </a>
+            </div>
+
+            <!-- Southern Command -->
+            <div class="x-embed-container reveal delay-400">
+                <div class="x-embed-header">
+                    <img src="https://www.bharat-rakshak.com/army/wp-content/uploads/sites/2/2006/10/Command-Southern.jpg" alt="Southern Command">
+                    <div class="text-left">
+                        <h4>Southern Command</h4>
+                        <span>@IaSouthern</span>
+                    </div>
+                    <a href="https://x.com/IaSouthern" target="_blank" class="ml-auto text-blue-500 hover:text-blue-700">
+                        <i class="fab fa-x-twitter text-xl"></i>
+                    </a>
+                </div>
+                <a class="twitter-timeline" 
+                   data-height="250" 
+                   data-theme="light"
+                   href="https://twitter.com/IaSouthern?ref_src=twsrc%5Etfw">
+                   Tweets by IaSouthern
+                </a>
+            </div>
+
+            <!-- Konark Corps -->
+            <div class="x-embed-container reveal delay-500">
+                <div class="x-embed-header">
+                    <img src="https://www.globalsecurity.org/military/world/india/images/corps-xii.gif" alt="Konark Corps">
+                    <div class="text-left">
+                        <h4>Konark Corps (XII Corps)</h4>
+                        <span>@IaSouthern (Konark)</span>
+                    </div>
+                    <a href="https://x.com/IaSouthern" target="_blank" class="ml-auto text-blue-500 hover:text-blue-700">
+                        <i class="fab fa-x-twitter text-xl"></i>
+                    </a>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <p class="text-sm text-gray-600 mb-2">Konark Corps operates under Southern Command</p>
+                    <a href="https://x.com/IaSouthern" target="_blank" class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors">
+                        <i class="fab fa-x-twitter"></i>
+                        Follow @IaSouthern
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-6 text-2xl olive-text mb-8 mt-6 reveal delay-200">
+                <i class="fas fa-shield-alt hover:scale-110 transition-transform"></i>
+                <i class="fas fa-radiation hover:scale-110 transition-transform"></i>
+                <i class="fas fa-biohazard hover:scale-110 transition-transform"></i>
+            </div>
+
+            <p class="text-xs text-gray-500 reveal delay-300">
+                © 2026 Indian Army<br>
+                Government of India<br>
+                <span class="text-[10px]">सेवा परमो धर्मः</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="nav-fixed">
+        <div class="nav-item active" onclick="scrollToSection('home')" title="Home">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('cbrn')" title="CBRN">
+            <i class="fas fa-biohazard"></i>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('mopp')" title="MOPP">
+            <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('equipment')" title="Equipment">
+            <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="nav-item" onclick="scrollToSection('about')" title="About">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </nav>
+
+    <!-- Twitter Widget Script -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+            
+            updateActiveNav();
+        });
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function updateActiveNav() {
+            const sections = ['home', 'cbrn', 'mopp', 'equipment', 'about'];
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    current = section;
+                }
+            });
+
+            navItems.forEach((item, index) => {
+                if (sections[index] === current) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for mobile - removed snap scroll
+        let touchStartY = 0;
+        let touchEndY = 0;
+        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'about'];
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const threshold = 50;
+            const currentIndex = sections.findIndex(s => {
+                const el = document.getElementById(s);
+                const rect = el.getBoundingClientRect();
+                return rect.top <= 150 && rect.bottom >= 150;
+            });
+
+            if (touchStartY - touchEndY > threshold && currentIndex < sections.length - 1) {
+                scrollToSection(sections[currentIndex + 1]);
+            }
+            if (touchEndY - touchStartY > threshold && currentIndex > 0) {
+                scrollToSection(sections[currentIndex - 1]);
+            }
+        }
+    </script>
+</body>
+</html>
