@@ -9,6 +9,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+
+        .flicker-img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:16px;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+animation:flicker 3s infinite;
+transition:transform 0.4s ease;
+}
+
+.flicker-img:hover{
+transform:scale(1.03);
+}
+
+@keyframes flicker{
+0%{opacity:1;}
+10%{opacity:0.85;}
+20%{opacity:1;}
+30%{opacity:0.9;}
+40%{opacity:1;}
+50%{opacity:0.95;}
+60%{opacity:1;}
+70%{opacity:0.9;}
+80%{opacity:1;}
+90%{opacity:0.95;}
+100%{opacity:1;}
+}
+
+/* Mobile Optimization */
+
+@media (max-width:768px){
+
+.flicker-img{
+height:200px;
+}
+
+}
+        
         * {
             margin: 0;
             padding: 0;
@@ -616,74 +655,38 @@
         </div>
     </section>
 
-    <!-- <section id="gallery">
+    <section id="training-gallery">
 
 <h2 class="font-oswald text-4xl font-bold gradient-text mb-6 text-center">
 TRAINING GALLERY
 </h2>
 
-<!-- 2 x 4 Grid -->
-<!-- <div class="grid grid-cols-2 gap-4 mb-6">
+<div class="space-y-6">
 
-<img src="<section id="gallery">
+<img src="DSC_4392.JPG.jpeg" class="flicker-img">
 
-<h2 class="font-oswald text-4xl font-bold gradient-text mb-6 text-center">
-TRAINING GALLERY
-</h2> -->
+<img src="DSC_6158.JPG.jpeg" class="flicker-img">
 
-<!-- 2 x 4 Grid -->
-<!-- <div class="grid grid-cols-2 gap-4 mb-6">
+<img src="DSC_6267.JPG.jpeg" class="flicker-img">
 
-<img src="DSC_4392.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
+<img src="DSC_6454.JPG.jpeg" class="flicker-img">
 
-<img src="DSC_6158.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
+<img src="DSC_6464.JPG.jpeg" class="flicker-img">
 
-<img src="DSC_6267.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
+<img src="DSC_6477.JPG.jpeg" class="flicker-img">
 
-<img src="DSC_6454.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
+<img src="DSC_6613.JPG.jpeg" class="flicker-img">
 
-<img src="DSC_6464.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition"> -->
+<img src="DSC_6722.JPG.jpeg" class="flicker-img">
 
-<!-- <img src="DSC_6477.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="DSC_6613.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="DSC_6722.JPG.jpeg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-</div> -->
-
-<!-- Full Width Image -->
-<!-- <div>
-<img src="WhatsApp Image 2026-03-19 at 11.0" class="w-full h-72 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-</div> --> -->
-
-<!-- </section>" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img2.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img3.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img4.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img5.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img6.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img7.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-
-<img src="img8.jpg" class="w-full h-56 object-cover rounded-xl shadow-lg hover:scale-105 transition">
+<img src="WhatsApp Image 2026-03-19 at 11.02.44 PM.jpeg" class="flicker-img">
 
 </div>
 
-<!-- Full Width Image -->
-<!-- <div>
-<img src="img9.jpg" class="w-full h-72 object-cover rounded-xl shadow-lg hover:scale-105 transition">
-</div>
-
-</section> --> -->
+</section>
 
     
-        <div class="grid grid-cols-3 gap-4 mb-10">
+        <!-- <div class="grid grid-cols-3 gap-4 mb-10">
 
     <img src="DSC_4392.JPG.jpeg" class="w-full h-full rounded-xl shadow-lg hover:scale-105 transition float">
 
@@ -703,7 +706,7 @@ TRAINING GALLERY
 
     <img src="WhatsApp Image 2026-03-19 at 11.02.44 PM.jpeg" class="w-full h-full rounded-xl shadow-lg hover:scale-105 transition float delay-400">
 
-</div>
+</div> -->
 
 
     <!-- Section 5: About with X Embeds Only -->
