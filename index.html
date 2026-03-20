@@ -917,34 +917,34 @@ item.classList.add('active');
         // }
 
         // Smooth scrolling for mobile - removed snap scroll
-        let touchStartY = 0;
-        let touchEndY = 0;
-        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallery' , 'about'];
+        // let touchStartY = 0;
+        // let touchEndY = 0;
+        // const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallery' , 'about'];
 
-        document.addEventListener('touchstart', e => {
-            touchStartY = e.changedTouches[0].screenY;
-        });
+        // document.addEventListener('touchstart', e => {
+        //     touchStartY = e.changedTouches[0].screenY;
+        // });
 
-        document.addEventListener('touchend', e => {
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        });
+        // document.addEventListener('touchend', e => {
+        //     touchEndY = e.changedTouches[0].screenY;
+        //     handleSwipe();
+        // });
 
-        function handleSwipe() {
-            const threshold = 50;
-            const currentIndex = sections.findIndex(s => {
-                const el = document.getElementById(s);
-                const rect = el.getBoundingClientRect();
-                return rect.top <= 150 && rect.bottom >= 150;
-            });
+        // function handleSwipe() {
+        //     const threshold = 50;
+        //     const currentIndex = sections.findIndex(s => {
+        //         const el = document.getElementById(s);
+        //         const rect = el.getBoundingClientRect();
+        //         return rect.top <= 150 && rect.bottom >= 150;
+        //     });
 
-            if (touchStartY - touchEndY > threshold && currentIndex < sections.length - 1) {
-                scrollToSection(sections[currentIndex + 1]);
-            }
-            if (touchEndY - touchStartY > threshold && currentIndex > 0) {
-                scrollToSection(sections[currentIndex - 1]);
-            }
-        }
+        //     if (touchStartY - touchEndY > threshold && currentIndex < sections.length - 1) {
+        //         scrollToSection(sections[currentIndex + 1]);
+        //     }
+        //     if (touchEndY - touchStartY > threshold && currentIndex > 0) {
+        //         scrollToSection(sections[currentIndex - 1]);
+        //     }
+        // }
     </script>
 </body>
 </html>
