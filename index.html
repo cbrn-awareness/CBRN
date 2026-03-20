@@ -804,6 +804,9 @@ TRAINING GALLERY
         <div class="nav-item" onclick="scrollToSection('equipment')" title="Equipment">
             <i class="fas fa-tshirt"></i>
         </div>
+        <div class="nav-item" onclick="scrollToSection('gallery')" title="Training Gallery">
+            <i class="fas fa-images"></i>
+        </div>
         <div class="nav-item" onclick="scrollToSection('about')" title="About">
             <i class="fas fa-info-circle"></i>
         </div>
@@ -850,7 +853,7 @@ TRAINING GALLERY
         }
 
         function updateActiveNav() {
-            const sections = ['home', 'cbrn', 'mopp', 'equipment', 'about'];
+            const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallary' , 'about'];
             const navItems = document.querySelectorAll('.nav-item');
             
             let current = '';
@@ -874,7 +877,7 @@ TRAINING GALLERY
         // Smooth scrolling for mobile - removed snap scroll
         let touchStartY = 0;
         let touchEndY = 0;
-        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'about'];
+        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallary' , 'about'];
 
         document.addEventListener('touchstart', e => {
             touchStartY = e.changedTouches[0].screenY;
