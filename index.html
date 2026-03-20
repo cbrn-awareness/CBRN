@@ -215,10 +215,10 @@ height:200px;
             flex-direction: row;
             gap: 12px;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: transparent; /*rgba(255, 255, 255, 0.9);*/
             padding: 8px;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: none; /*0 4px 15px rgba(0,0,0,0.1);*/
         }
         
         .top-logo {
@@ -227,10 +227,10 @@ height:200px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #4b5320;
-            background: white;
+            background: transparent; /*white;*/
             transition: all 0.3s ease;
             cursor: pointer;
-            display: block;
+            /*display: block;*/
         }
         
         .top-logo:hover {
@@ -911,7 +911,7 @@ item.classList.add('active');
         // Smooth scrolling for mobile - removed snap scroll
         let touchStartY = 0;
         let touchEndY = 0;
-        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallary' , 'about'];
+        const sections = ['home', 'cbrn', 'mopp', 'equipment', 'gallery' , 'about'];
 
         document.addEventListener('touchstart', e => {
             touchStartY = e.changedTouches[0].screenY;
